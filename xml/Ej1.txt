@@ -1,0 +1,16 @@
+PARTE A
+xquery version "3.1";
+for $aux in doc("BD.xml")//planeta
+where $aux/masa > 1
+return <nombre>{data($aux/nombre)}</nombre>
+
+PARTE 2
+xquery version "3.1";
+for $aux in doc("BD.xml")//planeta
+return <resultado>
+        <plan> {data($aux/nombre)} </plan>
+        {
+            for $aux2 in $aux //satelites/satelite
+            return <nom> {data($aux2/nombre)} </nom>
+        }
+        </resultado>

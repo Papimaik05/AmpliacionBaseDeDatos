@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orders SYSTEM "BDPEDIDOS.xml" [
+<!ELEMENT orders (order)+>
+<!ELEMENT order ( _id, cust_id, items?,price)>
+<!ELEMENT _id (#PCDATA)>
+<!ELEMENT cust_id (#PCDATA)>
+<!ELEMENT price(#PCDATA)>
+<!ELEMENT items (element)+>
+<!ELEMENT element (price,qty,sku)>
+<!ELEMENT qty(#PCDATA)>
+<!ELEMENT qty (#PCDATA)>
+<!ELEMENT sku (#PCDATA)>
+<!ATTLIST _id status (A|B|C) #REQUIRED >
+<!ATTLIST _id ord_date CDATA #REQUIRED >
+]>
+
+<orders>
+	<order>
+    	<_id ord_date="2020-03-01" status="A">1.0</_id>
+    	<cust_id>Ant O. Knee</cust_id>
+	    <items>
+	        <element>
+            	<price>2.5</price>
+            	<qty>5.0</qty>
+            	<sku>oranges</sku>
+	        </element>
+        	<element>
+            	<price>2.5</price>
+            	<qty>5.0</qty>
+            	<sku>apples</sku>
+            </element>
+	    </items>
+	    <price>25.0</price>
+	</order>
+	<order>
+    	<_id ord_date="2020-03-08" status="B">2.0</_id>
+    	<cust_id>Ant O. Knee</cust_id>
+    	<items>
+        	<element>
+            	<price>2.5</price>
+            	<qty>8.0</qty>
+            	<sku>oranges</sku>
+        	</element>
+        	<element>
+            	<price>10.0</price>
+            	<qty>5.0</qty>
+            	<sku>chocolates</sku>
+        	</element>
+        	<element>
+            	<price>0.0</price>
+            	<qty>1.0</qty>
+            	<sku>gift</sku>
+            	</element>
+        	<element>
+            	<price>0.0</price>
+            	<qty>1.0</qty>
+            	<sku>card</sku>
+        	</element>
+	    </items>
+	    <price>70.0</price>
+    </order>
+	<order>
+    	<_id>3.0</_id>
+    	<cust_id ord_date="2020-03-08" status="A">Busby Bee</cust_id>
+	    <items>
+	        <element>
+	            <price>2.5</price>
+            	<qty>10.0</qty>
+            	<sku>oranges</sku>
+        	</element>
+        	<element>
+                <price>2.5</price>
+                <qty>10.0</qty>
+            	<sku>pears</sku>
+	        </element>
+        	<element>
+            	<price>0.0</price>
+            	<qty>1.0</qty>
+            	<sku>gift</sku>
+        	</element>
+        	<element>
+            	<price>0.0</price>
+            	<qty>1.0</qty>
+            	<sku>gift</sku>
+	        </element>
+	   </items>
+	    <price>50.0</price>
+	</order>
+	<order>
+	    <_id ord_date="2020-03-18" status="C">4.0</_id>
+        <cust_id>Busby Bee</cust_id>
+	    <items>
+	        <element>
+            	<price>2.5</price>
+            	<qty>10.0</qty>
+            	<sku>oranges</sku>
+        	</element>
+    	</items>
+    	<price>25.0</price>
+	</order>
+	<order>
+    	<_id ord_date="2020-03-19" status="A">5.0</_id>
+    	<cust_id>Busby Bee</cust_id>
+    	<items>
+        	<element>
+            	<price>10.0</price>
+            	<qty>5.0</qty>
+            	<sku>chocolates</sku>
+            </element>
+        	<element>
+            	<price>0.0</price>
+            	<qty>1.0</qty>
+            	<sku>gift</sku>
+            	</element>
+        	<element>
+            	<price>0.0</price>
+            	<qty>1.0</qty>
+            	<sku>gift</sku>
+        	</element>
+    	</items>
+    	<price>50.0</price>
+	</order>
+	<order>
+    	<_id ord_date="2020-03-19" status="A">6.0</_id>
+    	<cust_id>Cam Elot</cust_id>
+    	<items>
+    	    <element>
+    	        <price>1.0</price>
+    	        <qty>10.0</qty>
+    	        <sku>carrots</sku>
+        	</element>
+        	<element>
+            	<price>2.5</price>
+            	<qty>10.0</qty>
+    	        <sku>apples</sku>
+    	    </element>
+    	</items>
+	    <price>35.0</price>
+    </order>
+	</orders> 

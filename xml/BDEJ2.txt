@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alojamientos SYSTEM "alojamientos.xml">[
+<!ELEMENT alojamientos(alojamiento)+>
+<!ELEMENT alojamiento( cif,direccion,telefono,habitaciones? )>
+<!ELEMENT habitaciones( habitacion)+>
+<!ELEMENT habitacion(precio,estado)>
+<!ELEMENT precio(#PCDATA)> <!==Precio de la habitación==>
+<!ATTLIST alojamiento tipo ( hotel| hostal | casarural) #required>
+<!ATTLIST habitacion id CDATA #required>
+<!ATTLIST estado est CDATA #required>
+]
+
+<alojamientos>
+  <alojamiento tipo="hotel">
+    <cif>12345678A</cif>
+    <direccion>Calle del Ejemplo, 1</direccion>
+    <telefono>123456789</telefono>
+    <habitaciones>
+      <habitacion id="1">
+        <precio>50</precio>
+        <estado>disponible</estado>
+      </habitacion>
+      <habitacion id="2">
+        <precio>60</precio>
+        <estado>ocupado</estado>
+      </habitacion>
+    </habitaciones>
+  </alojamiento>
+  <alojamiento tipo="casarural">
+    <cif>87654321B</cif>
+    <direccion>Plaza del Ejemplo, 2</direccion>
+    <telefono>987654321</telefono>
+    <habitaciones>
+      <habitacion id="1">
+        <precio>70</precio>
+        <estado>disponible</estado>
+      </habitacion>
+    </habitaciones>
+  </alojamiento>
+</alojamientos>

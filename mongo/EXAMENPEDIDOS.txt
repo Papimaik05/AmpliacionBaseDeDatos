@@ -1,0 +1,19 @@
+use ej2
+db.createCollection("pedidos")
+db.getCollectionNames()
+
+db.pedidos.insertOne({"_id":2.0,"cust_id":"Maikol","ord_date":"2023-03-01 00:00:00.000Z","price":70.0,"items":[{"sku":"oranges","qty":5.0,"price":2.5},{"sku":"apples","qty":5.0,"price":2.5}],"status":"A"})
+
+//Consulta con price>=30,que tenga oranjes y apples,devueleve importe items y ordenado descendente por fecha
+
+db.pedidos.find({"price":{$gt:30},"items.sku":"oranges","items.sku":"apples"},{"price":1,"items":1,_id:0}).sort({"ord_date":-1})
+
+//si price>=50 dar un gift dar un gift y una tarjeta
+
+db.pedidos.updateMany({"price":{$gt:50}},{$push:{"items":{$each:[{"sku":"gift","qty":"1","price":0},{"sku":"card","qty":"1","price":0}]}}}
+
+
+//como eliminar de una sola instruccion todos los items de tipo gift(sku:gift) que se habian introducido
+db.pedidos.updateMany({"items.sku": "gift"}, {$pull: {items: {sku: "gift"}}})
+
+EN EL PULL NO PUEDE HACER items.sku:gift debes hacer item:{sku:gift}

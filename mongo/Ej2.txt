@@ -1,0 +1,38 @@
+//BD
+use restaurante
+db.createCollection("catalogo")
+
+db.catalogo.insertMany([{codigo:1,nombre:"El meson",tipo:"mediterranea",visitas:250},{codigo:2,nombre:"La patata loca",tipo:"mediterranea",visitas:50},{codigo:3,nombre:"Yakuza",tipo:"japones",visitas:150},{codigo:4,nombre:"Todo pizza",tipo:"italiano",visitas:350}]) 
+
+
+//. Muestra todos los restaurantes (solo nombre y tipo) cuyas visitas sean m´as de 200
+db.catalogo.find({visitas:{$gt:200}},{_id:0,nombre:1,tipo:1})  
+
+//Incrementa las visitas del restaurante con valor de c´odigo igual a 1 en 25 unidades
+
+db.catalogo.updateOne({codigo:1},{$inc:{visitas:25}}) 
+
+//4. A˜nade a los restaurantes de tipo ’italiano’ el campo especialidad con valor ’pizza romana’
+
+db.catalogo.updateMany({tipo:"italiano"},{$set:{especialidad:"pizza romana"}}) 
+
+//5. A˜nade las siguientes valoraciones seg´un su c´odigo:
+
+db.catalogo.updateOne({ codigo: 1 }, { $push: { valoraciones: 3}})
+db.catalogo.updateOne({ codigo: 2 }, { $push: { valoraciones: { $each: [3, 4, 5]}}})
+db.catalogo.updateOne({ codigo: 3 }, { $push: { valoraciones: { $each: [4, 5, 5]}}})
+db.catalogo.updateOne({ codigo: 4 }, { $push: { valoraciones: { $each: [1, 5]}}})
+
+//Con una ´unica instrucci´on elimina todas las valoraciones iguales a 5 del restaurante con c´odigo igual a
+3.
+
+db.catalogo.updateOne({ codigo: 3 }, { $pull: { valoraciones:{$in:[1,2,3]}}})
+db.catalogo.updateOne({ codigo: 3 }, { $pull: { valoraciones: 5 } })
+
+ 
+//NOSE SI SE PUEDE HACER ESTO
+
+db.catalogo.updateOne({"codigo":4},{$set:{"valoraciones":[1,2,3]}})
+
+
+

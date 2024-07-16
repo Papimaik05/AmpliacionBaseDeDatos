@@ -1,0 +1,38 @@
+%equipo(idequipo,nombreequipo)
+equipo(atm,'AtleticodeMadrid').
+equipo(bcn,'Barcelona').
+equipo(rm,'RealMadrid').
+equipo(sev,'Sevilla').
+%itempartido(idpartido,idequipoA,golesA,idequipoB,golesB,espectadores)
+itemPartido(1,atm,1,rm,0,30).
+itemPartido(2,sev,2,bcn,0,15).
+itemPartido(3,bcn,1,atm,1,34).
+itemPartido(4,sev,1,rm,2,11).
+itemPartido(5,atm,3,sev,0,50).
+itemPartido(6,bcn,1,rm,2,11).
+itemPartido(7,rm,1,atm,2,32).
+itemPartido(8,bcn,2,sev,2,14).
+itemPartido(9,atm,3,bcn,1,29).
+itemPartido(10,rm,1,sev,3,11).
+itemPartido(11,sev,3,atm,1,55).
+itemPartido(12,rm,1,bcn,3,10).
+
+%consultas
+partido2(N1,G1,N2,G2) :- itemPartido(_,N1,G1,N2,G2,_).
+partido(N1,G1,N2,G2) :- equipo(Id1,N1),equipo(Id2,N2),itemPartido(_,Id1,G1,Id2,G2,_).
+
+%empate(P,N1,N2):-..., en el partido P ha habido un empate entre N1 y N2
+empate(P,N1,N2):- itemPartido(P,Id1,G1,Id2,G2,_),G1=G2,equipo(Id1,N1),equipo(Id2,N2).
+
+%asistenciaTotal(S):-..., S es el n´umero total de asistentes en toda la competici´on.
+asistenciaTotal(S):-group_by(itemPartido(_,_,_,_,_,Esp),[],S=sum(Esp)).
+
+%numeroVictoriasLocales(L):-..., L es el n´umero de victorias locales.
+numeroVictoriasLocalesAux(ID):-itemPartido(Id,_,G1,_,G2,_),G1>G2.
+numeroVictoriasLocales(L):-group_by(numeroVictoriasLocalesAux(ID),[],L=count(ID)).
+
+%asistenciaMediaEquipoLocal(Id1,M):-..., para un identificador de equipo Id1, M es la asistencia media cuando act´ua como local.
+
+asistenciaAux(Id1,Espe):-itemPartido(_,Id1,_,_,_,Espe).
+asistenciaMediaEquipoLocal(Id1,M):- group_by(asistenciaAux(Id1,Espe),[Id1],M=avg(Espe)).
+asistenciaMediaEquipoLocalNombre(N1,M):- group_by(asistenciaAux(Id1,Espe),[Id1],M=avg(Espe)),equipo(Id1,N1).

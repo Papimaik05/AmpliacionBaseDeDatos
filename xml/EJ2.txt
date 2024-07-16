@@ -1,0 +1,54 @@
+//1. El nombre de cada hotel con su telefono.
+
+xquery version "3.1";
+
+for $aux in doc("BD2.xml") //alojamiento [@tipo="hotel"]
+return <resultado>
+        <nombre> {data($aux/direccion)}</nombre>
+        <telefono> {data($aux/telefono)} </telefono>
+        </resultado>
+
+//2. Nombre del hotel y numero de habitaciones
+
+xquery version "3.1";
+
+for $aux in doc("BD2.xml") //alojamiento [@tipo="hotel"]
+return <resultado>
+        <nombre  > {data($aux/direccion)}</nombre>
+        <numhabitaciones> {data(count($aux/habitaciones/habitacion))}</numhabitaciones>
+        </resultado>
+
+//3 Para cada hotel, el precio mınimo de sus habitaciones y maximo
+
+xquery version "3.1";
+
+for $aux in doc("BD2.xml") //alojamiento [@tipo="hotel"]
+
+return <resultado>
+        <nombre> {data($aux/direccion)}</nombre>
+        <minimo> {data(min($aux/habitaciones/habitacion/precio))}</minimo>
+        <maximo> {data(max($aux/habitaciones/habitacion/precio))}</maximo>
+        </resultado>
+//4. El nombre y el telefono de los hoteles con habitaciones libres
+xquery version "3.1";
+
+for $aux in doc("BD2.xml") //alojamiento [@tipo="hotel"]
+where some $habitacion in $aux/habitaciones/habitacion
+satisfies  $habitacion/estado="disponible"
+return <resultado>
+        <nombre> {data($aux/direccion)}</nombre>
+        <tel> {data($aux/telefono)}</tel>
+        </resultado>
+//EJ EXTRA NOMBRE Y PRECIO DE LAS HOTELES CON HAB LIBRES
+xquery version "3.1";
+
+for $aux in doc("BD2.xml") //alojamiento [@tipo="hotel"]
+
+return <resultado>
+        <nombre> {data($aux/direccion)}</nombre>
+        {
+            for $aux2 in $aux //habitaciones/habitacion 
+            where $aux2/estado = "disponible"
+            return <precio> {data($aux2/precio)} </precio>
+        }
+        </resultado>

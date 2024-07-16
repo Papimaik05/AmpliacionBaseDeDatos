@@ -1,0 +1,47 @@
+<!ELEMENT alojamientos(alojamiento)+>
+<!ELEMENT alojamiento(nombre, cif, dirección, teléfono, habitaciones?)>
+<!ELEMENT habitaciones(habitacion)+>
+<!ELEMENT habitacion(precio, estado)>
+<!ELEMENT precio(⁠pcDATA)> <!—Precio de la habitación-->
+<!ATTLIST alojamiento tipo (hotel | hostal | casarural) #required>
+<!ATTLIST habitacion id CDATA #required>
+<!ATTLIST estado est CDATA #required>
+?: puede no aparecer o aparecer solo una vez.
++:tiene que aparecer al menos una vez.
+*:puede aparecer 0, 1 o más veces.
+<a>{$x/nombre/text()}</a>: elimina las etiquetas sobre nombre y solo muestra el text
+
+<alojamientos>
+    <alojamiento tipo="hotel">
+        <nombre>Casa Carlos</nombre>
+        <cif>123456789X</cif>
+        <direccion>Calle La Rioja</direccion>
+        <telefono>987654321</telefono>
+        <habitaciones>
+            <habitacion id="001">
+                <precio>125.00</precio>
+                <estado>libre</estado>
+            </habitacion>
+            <habitacion id="002">
+                <precio>215.00</precio>
+                <estado>libre</estado>
+            </habitacion>
+            <habitacion id="003">
+                <precio>1535.00</precio>
+                <estado>libre</estado>
+            </habitacion>
+        </habitaciones>
+    </alojamiento>
+    <alojamiento tipo="casarural">
+        <nombre>Zarzal Zarzalejo</nombre>
+        <cif>100000000X</cif>
+        <direccion>Calle la Zarza</direccion>
+        <telefono>918765432</telefono>
+        <habitaciones>
+            <habitacion id="101">
+                <precio>55.00</precio>
+                <estado>ocupada</estado>
+            </habitacion>
+        </habitaciones>
+    </alojamiento>
+</alojamientos>

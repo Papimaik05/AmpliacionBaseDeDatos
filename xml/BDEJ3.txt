@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE lineas SYSTEM "lineas.xml"[
+<!ELEMENT lineas (lineas)+>
+<!ELEMENT linea ( numero , asientos)>
+<!ELEMENT asientos ( asiento)+>
+<!ELEMENT numero (#PCDATA)>
+<!ELEMENT asiento (#PCDATA)> 
+<!ATTLIST linea origen CDATA #required>
+<!ATTLIST linea destino CDATA #required>
+<!ATTLIST asiento estado ( libre | ocupado ) #required>
+
+]>
+<!DOCTYPE lineas SYSTEM "lineas.dtd">
+<lineas>
+  <linea origen="Madrid" destino="Barcelona">
+    <numero>123</numero>
+    <asientos>
+      <asiento estado="ocupado">1A</asiento>
+      <asiento estado="libre">1B</asiento>
+      <asiento estado="libre">2A</asiento>
+      <asiento estado="ocupado">2B</asiento>
+      <asiento estado="ocupado">3A</asiento>
+      <asiento estado="libre">3B</asiento>
+      <asiento estado="ocupado">4A</asiento>
+      <asiento estado="libre">4B</asiento>
+    </asientos>
+  </linea>
+  <linea origen="Barcelona" destino="Madrid">
+    <numero>456</numero>
+    <asientos>
+      <asiento estado="ocupado">1A</asiento>
+      <asiento estado="libre">1B</asiento>
+      <asiento estado="ocupado">2A</asiento>
+      <asiento estado="libre">2B</asiento>
+      <asiento estado="ocupado">3A</asiento>
+      <asiento estado="libre">3B</asiento>
+      <asiento estado="ocupado">4A</asiento>
+      <asiento estado="libre">4B</asiento>
+    </asientos>
+  </linea>
+</lineas>

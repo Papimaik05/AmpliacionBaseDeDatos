@@ -1,0 +1,36 @@
+//CREA LA BD
+
+db.pedidos.insertOne( { "ID_Pedido": 1, "Nombre_Cliente": "PCfine", "Importe Total": 405, "Ensamblado": [ { "componente": "pb_2000", "detalles": { "fabricante": "AJT", "país": "Taiwan", "año": 2019 }, "precio": 250 }, { "componente": "cpu", "detalles": { "fabricante": "MicroL", "país": "USA", "año": 2021 }, "precio": 155 }] }) 
+db.pedidos.insert( { "ID_Pedido": 2, "Nombre_Cliente": "SistemasTotal", "Importe Total": 195, "Ensamblado": [ { "componente": "hdd", "detalles": { "fabricante": "SingaHD", "país": "Singapur", "año": 2021 }, "precio": 195 }] }) 
+db.pedidos.insertOne( { "ID_Pedido": 3, "Nombre_Cliente": "Info2000", "Importe Total": 400, "Ensamblado": [ { "componente": "GPU", "detalles": { "fabricante": "Nvidia", "país": "USA", "año": 2020 }, "precio": 400 }] })                                                                                                                                                                                                                     
+
+
+//Dise˜na una consulta en mongoDB que devuelva por orden alfab´etico los nombres de los clientes que
+han realizado un pedido que tenga componentes de los a˜nos 2019, 2020 o 2021, estando el importe total
+del pedido entre 400 y 500 euros. El importe total tambi´en se ha de mostrar.
+
+
+db.pedidos.find( { "Importe Total": { $gt: 400, $lt: 500 }, "Ensamblado.detalles.año": { $in: [2019, 2020, 2021] } }, { "Nombre_Cliente": 1, "Importe Total": 1, _id: 0 }). sort({ "Nombre_Cliente": 1 }) 
+
+//Modifica los valores de detalles del segundo componente del ensamblado para el cliente ”PCfine”,
+tomando ahora los nuevos: fabricante: ”AMD”, pa´ıs: ”USA”, a˜no: ”2022”.
+
+ db.pedidos.updateOne({"Nombre_Cliente" :"PCfine"},{$set:{"Ensamblado.1.detalles":{"fabricante":"AMD","país":"USA","año":2022}}}) 
+
+TB SE PUEDE HACER ASI
+db.pedidos.updateOne({"Nombre_Cliente" :"PCfine"},{$set:{"Ensamblado.1.detalles.país":"ESPAÑA","Ensamblado.1.detalles.año":2002}}) 
+
+
+//Para el cliente ”PCfine” y con una sola instrucci´on, elimina completamente el primero de los componentes listados
+
+db.Pedidos.update({"Nombre_Cliente":"PCfine"},{$pop:{"Ensamblado":-1}})
+
+EL POP CON -1 es al principio del array y con uno es el final
+
+
+//Para el cliente ”Info2000” y con una sola instrucci´on, a˜nade dos nuevos componentes con todos sus
+elementos y con los siguientes valores:
+
+
+
+db.pedidos.update({"Nombre_Cliente":"PCfine"},{$push:{"Ensamblado":{$each:[{"componente":"USBHUB","detalles":{"fabricante":"CONNECT","pais":"UK","año":2022}."precio":50},{"componente":"HDMI","detalles":{"fabricante":"INTEL","pais":"FINLAND","AÑO":2018},"precio":35}]}}}) 

@@ -1,0 +1,54 @@
+//. Para cada avi´on, mostrar su matr´ıcula (avionId) y su status de acuerdo al siguiente formato, y
+ordenados por antig¨uedad de mayor a menor.
+
+xquery version "3.1";
+
+for $aux in doc("BD4.xml")//avion
+order by $aux/@anio
+return <estado>
+        {data($aux/@avionId)} :{data($aux/@status)}
+       </estado>
+
+//Considerando todas las l´ıneas, el menor numero de horas operativas al d´ıa (duracionTotal *
+iteracionesDiarias), seg´un el siguiente formato:
+
+xquery version "3.1";
+
+for $aux in doc("BD4.xml")/lineaAerea/lineas
+let $yanky:=$aux/linea/(iteracionesDiarias * duracionTotal)
+return <minimo>{min($yanky)} </minimo>
+
+//Identificaci´on del piloto con m´as horas acumuladas de vuelo (horasVueloAcumuladas) y el valor
+de dichas horas, seg´un el formato siguiente:
+
+xquery version "3.1";
+
+for $aux in doc("BD4.xml")/lineaAerea/pilotos
+let $maikol:= max($aux/piloto/horasVueloAcumuladas)
+for $aux2 in $aux/piloto
+where $aux2/horasVueloAcumuladas = $maikol
+return <piloto>
+        <id>
+            {data($aux2/@pilotoId)}
+        </id>
+        <horas>
+            {$maikol}
+        </horas>
+       </piloto>
+
+/Para todas las l´ıneas, n´umero de pilotos asignados a una misma l´ınea, seg´un el formato siguiente
+
+xquery version "3.1";
+
+for $aux in doc("BD4.xml")/lineaAerea/lineas/linea
+let $auxid:=$aux/@lineaId
+
+let $maikol:=count(
+    for $aux2 in doc("BD4.xml")/lineaAerea/pilotos/piloto
+    where $aux2/linea = $auxid
+    return $aux2
+    )
+
+return <numPilotos id="{$auxid}">
+        {$maikol}
+        </numPilotos>

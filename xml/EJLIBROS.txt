@@ -1,0 +1,35 @@
+//titulo
+xquery version "3.1";
+for $aux in doc("BDLIBROS.xml")//libros/libro
+return <titulo>
+            {data($aux/titulo)}
+        </titulo>
+
+//titulo y autor
+
+xquery version "3.1";
+for $aux in doc("BDLIBROS.xml")//libros/libro
+return <resultado>
+            <titulo>{data($aux/titulo)}</titulo>
+            <autor>{data($aux/autor/nombre)}</autor>
+        </resultado>
+
+//titulo inicio devolucion y ordenar
+
+xquery version "3.1";
+for $aux in doc("BDLIBROS.xml")//prestamos/entrada
+order by $aux/prestamo/inicio
+return <resultado>
+            <titulo>{data($aux/titulo)}</titulo>
+            <inicio>{data($aux/prestamo/inicio)}</inicio>
+            <devolucion>{data($aux/prestamo/devolucion)}</devolucion>
+        </resultado>
+
+
+//TITULO Y PRIMER AUTOR
+xquery version "3.1";
+for $aux in doc("BDLIBROS.xml")//libros/libro
+return <resultado>
+            <titulo>{data($aux/titulo)}</titulo>
+            <autor>{data($aux/autor[position()=1]/nombre)}</autor>
+        </resultado>

@@ -1,0 +1,40 @@
+%estudiantes(codigodeestudiante,nombre).
+estudiantes(111,pepe).
+estudiantes(222,juan).
+estudiantes(333,ana).
+estudiantes(444,maria).
+estudiantes(555,carlos).
+%asignatura(codigodelaasignatura,nombredelaasignatura,numerodecreditos).
+asignatura(c1,matematicas,20).
+asignatura(c2,fisica,25).
+asignatura(c3,quimica,10).
+%matriculaciones(codigodeestudiante,codigodelaasignatura,nota,
+%añodematriculacion).
+matriculaciones(111,c1,6,2020).
+matriculaciones(111,c2,7,2020).
+matriculaciones(333,c1,6,2021).
+matriculaciones(444,c3,9,2021).
+matriculaciones(444,c2,10,2021).
+matriculaciones(444,c1,5,2020).
+matriculaciones(111,c3,9,2022).
+matriculaciones(333,c2,10,2022).
+matriculaciones(333,c3,9,2022).
+matriculaciones(555,c3,9,2022).
+matriculaciones(444,c2,10,2022).
+matriculaciones(444,c1,5,2022).
+
+%consultas
+%listado(N,Asig,A): asignaturas matriculadas (Asig) por el alumno (N) en el a˜no (A).
+listado(N,Asig,A):- estudiantes(Cod,N),asignatura(Casig,Asig,Cred),matriculaciones(Cod,Casig,Nota,A).
+
+%numeroMatriculados(A,Num): n´umero de alumnos matriculados (Num) an el a˜no (A). Ejemplo:
+numeroMatriculados(A,Num) :- group_by(matriculaciones(C,_,_,A),[A],Num=count(C)).
+%maximaNotaAsig(A,Asig,N): nota m´axima (N) de la asignatura (Asig) en el a˜no (A). Ejemplo:
+maximaNotaAsigaux(A, Asig ,Nota ):- matriculaciones(_,Coda,Nota,A),asignatura(Coda,Asig,_).
+maximaNotaAsig(A,Asig,N) :- group_by(maximaNotaAsigaux(A,Asig,Nota),[A,Asig],N=max(Nota)).
+
+%asigCreditos(Asig): Asig es la asignatura con m´as cr´editos. Ejemplo:
+
+asigCreditosAux(Aux) :- group_by(asignatura(Cod,Asig,Cred),[],Aux=max(Cred)).
+asigCreditos(Asig) :- asigCreditosAux(Aux), asignatura(Cod, Asig, Aux).
+

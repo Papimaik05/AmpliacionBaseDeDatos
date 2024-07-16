@@ -1,0 +1,24 @@
+%habitacion(Idhab, Categoria).
+habitacion(222,3).
+habitacion(333,2).
+habitacion(111,1).
+%tipos_habitacion(Categoria, precio_dia).
+tipos_habitacion(1,10).
+tipos_habitacion(2,20).
+tipos_habitacion(3,20).
+%reserva(Idres, Idhab, Comienzo, Final).
+reserva(1111,111,1,3).
+reserva(2222,111,6,8).
+reserva(3333,222,4,7).
+reserva(4444,222,1,5).
+reserva(5555,333,7,12).
+reserva(6666,333,6,8).
+
+auxhabitacion(Id,Pre):-habitacion(Id,Cat),tipos_habitacion(Cat,Pre).
+importe_reserva(Res,Id,Dias,S):-reserva(Res,Id,In,Fin),auxhabitacion(Id,Pre),Dias= Fin-In,S=Dias*Pre.
+
+factura(Id,Med):-group_by(importe_reserva(Res,Id,Dias,S),[Id],Med=sum(S)).
+
+estancia(Id,Med):-group_by(reserva(Res,Id,In,Fin),[Id],Med=avg(Fin-In)).
+
+estancialarga(Maxi):-group_by(reserva(Res,Id,In,Fin),[],Maxi=max(Fin-In)).

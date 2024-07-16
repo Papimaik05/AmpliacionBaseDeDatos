@@ -1,0 +1,56 @@
+<lineaAerea>
+    <pilotos>
+        <piloto pilotoId="1">
+            <antiguedad>13</antiguedad>
+            <horasVueloSemanal>24</horasVueloSemanal>
+            <horasVueloAcumuladas>6000</horasVueloAcumuladas>
+            <linea>line01</linea>
+        </piloto>
+        <piloto pilotoId="2">
+            <antiguedad>21</antiguedad>
+            <horasVueloSemanal>12</horasVueloSemanal>
+            <horasVueloAcumuladas>9500</horasVueloAcumuladas>
+            <linea>line02</linea>
+        </piloto>
+        <piloto pilotoId="3">
+            <antiguedad>6</antiguedad>
+            <horasVueloSemanal>18</horasVueloSemanal>
+            <horasVueloAcumuladas>8900</horasVueloAcumuladas>
+            <linea>line03</linea>
+        </piloto>
+            <piloto pilotoId="4">
+            <antiguedad>9</antiguedad>
+            <horasVueloSemanal>24</horasVueloSemanal>
+            <examenPractica>apto</examenPractica>
+            <linea>line01</linea>
+        </piloto>
+            <piloto pilotoId="5">
+            <antiguedad>16</antiguedad>
+            <horasVueloSemanal>6</horasVueloSemanal>
+            <examenPractica>pendiente</examenPractica>
+            <linea>line02</linea>
+        </piloto>
+    </pilotos>
+    <lineas>
+        <linea lineaId="line01" avion="EC=479">
+            <linea_air>mad=bcn=mad</linea_air>
+            <duracionTotal>2.5</duracionTotal>
+            <iteracionesDiarias>3</iteracionesDiarias>
+        </linea>
+        <linea lineaId="line02" avion="EC=678">
+            <linea_air>agp=nyc=agp</linea_air>
+            <duracionTotal>11</duracionTotal>
+            <iteracionesDiarias>1</iteracionesDiarias>
+        </linea>
+        <linea lineaId="line03" avion="EC=345">
+            <linea_air>bcn=fkt=bcn</linea_air>
+            <duracionTotal>3.5</duracionTotal>
+            <iteracionesDiarias>2</iteracionesDiarias>
+        </linea>
+    </lineas>
+    <aviones>
+        <avion avionId="EC=345" anio="2019" status="available"/>
+        <avion avionId="EC=678" anio="2021" status="maintenanceRequired"/>
+        <avion avionId="EC=479" anio="2017" status="available"/>
+    </aviones>
+</lineaAerea>

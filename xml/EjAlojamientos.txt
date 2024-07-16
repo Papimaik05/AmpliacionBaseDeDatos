@@ -1,0 +1,39 @@
+//NOMBRE Y TELEFONO DE HOTELES
+xquery version "3.1";
+for $aux in doc("BDAlojamientos.xml")//alojamiento
+Where $aux/@tipo ="hotel"
+return <resultado>
+            <nombre>{data($aux/nombre)}</nombre>
+            <telefono>{data($aux/telefono)}</telefono>
+        </resultado>
+
+//NOMBRE Y NUM HABITACIONES D EHOTEL
+xquery version "3.1";
+for $aux in doc("BDAlojamientos.xml")//alojamiento[@tipo="hotel"]
+let $maikol:= count($aux/habitaciones/habitacion)
+return <resultado>
+            <nombre>{data($aux/nombre)}</nombre>
+            <habitaciones>{$maikol}</habitaciones>
+        </resultado>
+
+
+//MAX Y MINI
+xquery version "3.1";
+for $aux in doc("BDAlojamientos.xml")//alojamiento[@tipo="hotel"]
+let $maikolmin:= min($aux/habitaciones/habitacion/precio)
+let $maikolmax:= max($aux/habitaciones/habitacion/precio)
+return <resultado>
+            <nombre>{data($aux/nombre)}</nombre>
+            <minimo>{$maikolmin}</minimo>
+            <maximo>{$maikolmax}</maximo>
+        </resultado>
+
+//Hoteeles con habitaciones libres
+xquery version "3.1";
+for $aux in doc("BDAlojamientos.xml")//alojamiento[@tipo="hotel"]
+where some $habi in $aux/habitaciones/habitacion
+satisfies $habi/estado="libre"
+return <resultado>
+            <nombre>{data($aux/nombre)}</nombre>
+            <telefono>{data($aux/telefono)}</telefono>
+        </resultado>

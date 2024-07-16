@@ -1,0 +1,53 @@
+%producto(códigodelproducto,descripción)
+producto(11,galletas).
+producto(22,leche).
+producto(33,cerveza).
+producto(44,detergente).
+producto(55,sandia).
+%precioporunidad(códigodelproducto,precioporunidad)
+precioporunidad(11,2).
+precioporunidad(22,3).
+precioporunidad(33,2).
+precioporunidad(44,7).
+precioporunidad(55,12).
+%ticket(códigodelticket,códigodelproducto,unidadescompradas).
+ticket(111,11,2).
+ticket(111,22,3).
+ticket(111,33,10).
+ticket(111,44,4).
+ticket(222,11,2).
+ticket(222,22,3).
+ticket(222,33,10).
+ticket(333,44,4).
+ticket(333,11,2).
+ticket(444,11,2).
+ticket(444,22,2).
+ticket(444,33,2).
+ticket(444,55,2).
+ticket(555,11,5).
+ticket(555,55,10).
+
+//1. coste ticket(C,Total): Total es el coste total del ticket de c´odigo C. Ejemplo:
+auxcoste_ticket(C,Precio):-ticket(C,Pro,Uni),precioporunidad(Pro,Pre),Precio=Uni*Pre.
+coste_ticket(C,Total):-group_by(auxcoste_ticket(C,Precio),[C],Total=sum(Precio)).
+
+//CODIGO DEL TICKET MAS CARO
+auxCaro(Max):-group_by(coste_ticket(C,Total),[],Max=max(Total)).
+ticket mas caro(C):-coste_ticket(C,Total),auxCaro(Max),Total=Max.
+
+//: P es un producto (codigo)que aparece en aquellos tickets cuyo coste total es el
+doble que el coste medio de todos los tickets. Ejemplo:
+
+auxMedia(Media):-group_by(coste_ticket(C,Total),[],Media=avg(Total)).
+auxTicketMedia(C):-coste_ticket(C,Total),auxMedia(Media),Total>2*Media.
+productos_premium(P):-auxTicketMedia(C),ticket(C,P,_).
+
+
+//asociacion
+
+
+cuenta(Pro,Num1):-group_by(ticket(_,Pro,_),[Pro],Num1=count()).
+mismoticket(P1,P2,C):-ticket(C,P1,_),ticket(C,P2,_),P1\=P2.
+cuenta2(Pro2,Pro1,Num2):-group_by(mismoticket(Pro2,Pro1,C),[Pro1,Pro2],Num2=count(C)).
+asociacion(Pro1,Pro2):-cuenta2(Pro2,Pro1,Num2),cuenta(Pro,Num1),Num1>0.7*Num2,Pro1\=Pro2.
+

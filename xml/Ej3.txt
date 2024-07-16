@@ -1,0 +1,52 @@
+1. Todos los numeros de vuelos con origen Madrid segun el formato:
+
+<vuelo-Madrid>{
+    for $aux in doc("BD3.xml")//linea [@origen="Madrid"]
+    return  <num>{data($aux/numero)}</num>    
+}</vuelo-Madrid>
+
+2. El numero de los asientos de cada vuelo con origen Madrid segun el formato:
+xquery version "3.1";
+<vuelo-Madrid>{
+  for $aux in doc("BD3.xml")//linea[@origen="Madrid"]
+  return   
+    <element>{
+     <num>
+        {data($aux/numero)}
+     </num>   
+    }
+    {
+     <asientos>
+        {count(data($aux/asientos/asiento))}
+     </asientos>   
+    }</element>
+}
+    
+</vuelo-Madrid>
+
+3. El numero de todos los vuelos con plazas libres seg´un el formato:
+xquery version "3.1";
+<vuelo>{
+for $aux in doc("BD3.xml")//linea 
+where some $asiento in $aux/asientos/asiento
+satisfies $asiento[@estado="libre"]
+return  <num>{data($aux/numero)}</num>
+}</vuelo>
+
+4. Todas las plazas libres por numero de vuelo según el formato:
+xquery version "3.1";
+
+for $aux in doc("BD3.xml")//linea 
+where some $asiento in $aux/asientos/asiento
+satisfies $asiento[@estado="libre"]
+return <vuelo>
+        <num>{data($aux/numero)}</num>
+        <plazas-libres>
+        {
+            for $aux2 in $aux/asientos/asiento
+            where $aux2/@estado ='libre'
+            return <asiento>{data($aux2)}</asiento> 
+                    
+        }
+        </plazas-libres>
+        </vuelo>

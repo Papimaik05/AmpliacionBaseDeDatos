@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE planetas SYSTEM "BD.xml" [
+<!ELEMENT planetas (planeta )+>
+<!ELEMENT planeta ( nombre , diametro , masa , satelites? )>
+<!ELEMENT satelites (satelite)+>
+<!ELEMENT satelite ( nombre )>
+]>
+<planetas>
+    <planeta>
+        <nombre>Tierra</nombre>
+        <diametro>12742</diametro>
+        <masa>5.97</masa>
+        <satelites>
+            <satelite>
+                <nombre>Luna</nombre>
+            </satelite>
+        </satelites>
+    </planeta>
+    <planeta>
+        <nombre>Marte</nombre>
+        <diametro>6779</diametro>
+        <masa>0.642</masa>
+        <satelites/>
+    </planeta>
+    <planeta>
+        <nombre>Júpiter</nombre>
+        <diametro>139822</diametro>
+        <masa>1898</masa>
+        <satelites>
+            <satelite>
+                <nombre>Io</nombre>
+            </satelite>
+            <satelite>
+                <nombre>Europa</nombre>
+            </satelite>
+            <satelite>
+                <nombre>Ganímedes</nombre>
+            </satelite>
+            <satelite>
+                <nombre>Calisto</nombre>
+            </satelite>
+        </satelites>
+    </planeta>
+</planetas>
